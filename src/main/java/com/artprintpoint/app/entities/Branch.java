@@ -1,0 +1,28 @@
+package com.artprintpoint.app.entities;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "branches")
+@Data
+public class Branch {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String branchName;
+    private String address;
+    private String contactNumber;
+    private Boolean isActive;
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        if (isActive == null) isActive = true;
+    }
+}
